@@ -22,6 +22,7 @@
                 <RowDefinition Height="1*"/>
             </Grid.RowDefinitions>
         </Grid>
+        <Image Grid.Row ="0" Source="imeges/51755-O6WIBL.jpg" />
 
     </Grid>
 </UserControl>
