@@ -27,7 +27,7 @@
             <Slider Grid.Column="1" Grid.Row="1" Name="pageCountSlider" Value="200" Maximum="400" VerticalAlignment="Center"/>
         </Grid>
         <Image Grid.Row ="0" Source="imeges/51755-O6WIBL.jpg" />
-        <Label Grid.Row="1" Name="printerNameLabel" Content="printer Name" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16"/>
+        <Label Grid.Row="1" Name="printerNameLabel" Content="printer Name" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16" Background="Transparent"/>
 
     </Grid>
 </UserControl>
