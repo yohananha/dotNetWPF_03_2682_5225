@@ -24,5 +24,6 @@ namespace dotNetWPF_03_2682_5225
         {
             InitializeComponent();
         }
+
     }
 }

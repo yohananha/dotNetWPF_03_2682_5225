@@ -20,9 +20,33 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
+        public string PrinterName { get; set; }
+        public double InkCount { get; set; }
+        public int PageCount { get; set; }
+
         public PrinterUserControl()
         {
             InitializeComponent();
         }
+        private double inkCount;
+
+
+        private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize *= 2;
+        }
+
+        private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize /= 2;
+        }
+
+        private void inkCountProgressBar_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            inkCountProgressBar.ToolTip = inkCountProgressBar.Value;
+        }
+        EventHandler<PrinterEventArgs> PageMissing;
+        EventHandler<PrinterEventArgs> InkEmpty;
+ 
     }
 }
