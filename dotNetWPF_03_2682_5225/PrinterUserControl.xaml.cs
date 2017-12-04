@@ -20,9 +20,6 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        EventHandler<PrinterEventArgs> PageMissing;
-        EventHandler<PrinterEventArgs> InkEmpty;
-
         public string PrinterName { get; set; }
         public double InkCount { get; set; }
         public int PageCount { get; set; }
@@ -31,6 +28,8 @@ namespace dotNetWPF_03_2682_5225
         {
             InitializeComponent();
         }
+        private double inkCount;
+
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -46,5 +45,8 @@ namespace dotNetWPF_03_2682_5225
         {
             inkCountProgressBar.ToolTip = inkCountProgressBar.Value;
         }
+        EventHandler<PrinterEventArgs> PageMissing;
+        EventHandler<PrinterEventArgs> InkEmpty;
+ 
     }
 }

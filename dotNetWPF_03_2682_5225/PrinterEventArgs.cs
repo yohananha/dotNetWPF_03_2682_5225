@@ -8,17 +8,17 @@ namespace dotNetWPF_03_2682_5225
 {
     class PrinterEventArgs
     {
-        private bool isCretic;
-        private DateTime date;
-        private string masg;
+        private bool isCritic;
+        private DateTime errorTime;
+        private string message;
         private string printerName;
 
-        public PrinterEventArgs(bool i, DateTime d, string m, string p)
+        public PrinterEventArgs(bool _isCritic, DateTime _errorTime, string _message, string _printerName )
         {
-            isCretic = i;
-            date = d;
-            masg = m;
-            printerName = p;
+            isCritic = _isCritic;
+            errorTime = _errorTime;
+            message = _message;
+            printerName = _printerName;
         }
     }
 }

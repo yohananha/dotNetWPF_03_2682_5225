@@ -23,11 +23,12 @@
             </Grid.RowDefinitions>
             <Label Name="inkLabel" Content="Ink:" FontFamily="Open Sans Hebrew"/>
             <Label Grid.Row="1" Name="pageLabel" Content="Pages:" FontFamily="Open Sans Hebrew"/>
-            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="23" ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""   />
+            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="20" MouseEnter="inkCountProgressBar_MouseEnter" ValueChanged="inkCountProgressBar_ValueChanged" ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
+
             <Slider Grid.Column="1" Grid.Row="1" Name="pageCountSlider" Value="200" Maximum="400" VerticalAlignment="Center"/>
         </Grid>
-        <Image Grid.Row ="0" Source="imeges/51755-O6WIBL.jpg" />
-        <Label Grid.Row="1" Name="printerNameLabel" Content="printer Name" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16" FontFamily="Open Sans Hebrew" FontWeight="Bold" MouseEnter="printerNameLabel_MouseEnter" MouseLeave="printerNameLabel_MouseLeave" />
+        <Image Grid.Row ="0" Source="imeges/51755-O6WIBL.jpg" Margin="3" />
+        <Label Grid.Row="1" Name="printerNameLabel" Content="printer Name" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="RoyalBlue" FontSize="16" FontFamily="Open Sans Hebrew" FontWeight="Bold" MouseLeave="printerNameLabel_MouseLeave" MouseEnter="printerNameLabel_MouseEnter" />
 
     </Grid>
 </UserControl>
