@@ -23,12 +23,15 @@ namespace dotNetWPF_03_2682_5225
  
         public PrinterUserControl()
         {
-            PrinterName =  "printer" + Convert.ToString(printNum++);
             InitializeComponent();
+            PrinterName = "printer" + Convert.ToString(printNum++);
         }
+        static Random r = new Random();
+
         private const double MAX_INK = 100;
         private const double MIN_ADD_INK = 10.0;
         private const double MAX_PRINT_INK = 70;
+
         private const int MIN_ADD_PAGES = 10;
         private const int MAX_PRINT_PAGES = 300;
 
@@ -91,6 +94,36 @@ namespace dotNetWPF_03_2682_5225
             set
             {
                 pageCount = value;
+            }
+        }
+
+        public void print()
+        {
+            InkCount -= r.Next((int)MIN_ADD_INK, (int)MIN_ADD_INK);
+            PageCount -= r.Next(MIN_ADD_PAGES, MIN_ADD_PAGES);
+            if (0 > PageCount)
+            {
+                pageLabel.Foreground = Brushes.Red;
+                PrinterEventArgs p = new PrinterEventArgs(true, DateTime.Now, "page miss", PrinterName);
+                PageMissing(this, p);
+            }
+            if(InkCount>=10 && InkCount <= 15)
+            {
+                inkLabel.Foreground = Brushes.Yellow;
+                PrinterEventArgs p = new PrinterEventArgs(false, DateTime.Now, "Ink miss", PrinterName);
+                InkEmpty(this, p);
+            }
+            if (InkCount >= 1 && InkCount <= 10)
+            {
+                inkLabel.Foreground = Brushes.Orange;
+                PrinterEventArgs p = new PrinterEventArgs(false, DateTime.Now, "Ink miss", PrinterName);
+                InkEmpty(this, p);
+            }
+            if (InkCount >= 0)
+            {
+                inkLabel.Foreground = Brushes.Red;
+                PrinterEventArgs p = new PrinterEventArgs(true, DateTime.Now, "Ink miss", PrinterName);
+                InkEmpty(this, p);
             }
         }
     }
