@@ -20,22 +20,53 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        //INK amount
+ 
+        public PrinterUserControl()
+        {
+            PrinterName =  "printer" + Convert.ToString(printNum++);
+            InitializeComponent();
+        }
         private const double MAX_INK = 100;
-        private const double MIN_ADD_INK = MAX_INK / 10.0;
+        private const double MIN_ADD_INK = 10.0;
         private const double MAX_PRINT_INK = 70;
-        //PAGES amount
-        private const int MAX_PAGES = 100;
-        private const int MIN_ADD_PAGES = MAX_PAGES / 10;
+        private const int MIN_ADD_PAGES = 10;
         private const int MAX_PRINT_PAGES = 300;
-        private static int printNum = 1;
 
-        private string printerName  ;
-
+        private string printerName;
         private double inkCount;
         private int pageCount;
+        private static int printNum = 1;
+        
 
-  
+        private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize *= 2;
+        }
+
+        private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
+        {
+            printerNameLabel.FontSize /= 2;
+        }
+
+        private void inkCountProgressBar_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            inkCountProgressBar.ToolTip = inkCountProgressBar.Value;
+        }
+        EventHandler<PrinterEventArgs> PageMissing;
+        EventHandler<PrinterEventArgs> InkEmpty;
+
+        public string PrinterName
+        {
+            get
+            {
+                return printerName;
+            }
+
+            set
+            {
+                printerName = value;
+            }
+        }
 
         public double InkCount
         {
@@ -62,44 +93,5 @@ namespace dotNetWPF_03_2682_5225
                 pageCount = value;
             }
         }
-
-        public string PrinterName
-        {
-            get
-            {
-                return printerName;
-            }
-
-            set
-            {
-               
-            }
-        }
-
-        public PrinterUserControl()
-        {
-            InitializeComponent();
-            printerName = "Printer " + Convert.ToString(printNum++);
-        }
-    
-       
-
-        private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
-        {
-            printerNameLabel.FontSize *= 2;
-        }
-
-        private void printerNameLabel_MouseLeave(object sender, MouseEventArgs e)
-        {
-            printerNameLabel.FontSize /= 2;
-        }
-
-        private void inkCountProgressBar_ToolTipOpening(object sender, ToolTipEventArgs e)
-        {
-            inkCountProgressBar.ToolTip = inkCountProgressBar.Value;
-        }
-        //EventHandler<PrinterEventArgs> PageMissing;
-        //EventHandler<PrinterEventArgs> InkEmpty;
- 
     }
 }
