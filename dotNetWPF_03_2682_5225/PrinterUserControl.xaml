@@ -23,7 +23,7 @@
             </Grid.RowDefinitions>
             <Label Name="inkLabel" Content="Ink:" FontFamily="Open Sans Hebrew"/>
             <Label Grid.Row="1" Name="pageLabel" Content="Pages:" FontFamily="Open Sans Hebrew"/>
-            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="20" MouseEnter="inkCountProgressBar_MouseEnter" ValueChanged="inkCountProgressBar_ValueChanged" ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
+            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="20"   ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
 
             <Slider Grid.Column="1" Grid.Row="1" Name="pageCountSlider" Value="200" Maximum="400" VerticalAlignment="Center"/>
         </Grid>
