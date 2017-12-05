@@ -20,16 +20,23 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class PrinterUserControl : UserControl
     {
-        public string PrinterName { get; set; }
-        public double InkCount { get; set; }
-        public int PageCount { get; set; }
-
+ 
         public PrinterUserControl()
         {
+            PrinterName =  "printer" + Convert.ToString(printNum++);
             InitializeComponent();
         }
-        private double inkCount;
+        private const double MAX_INK = 100;
+        private const double MIN_ADD_INK = 10.0;
+        private const double MAX_PRINT_INK = 70;
+        private const int MIN_ADD_PAGES = 10;
+        private const int MAX_PRINT_PAGES = 300;
 
+        private string printerName;
+        private double inkCount;
+        private int pageCount;
+        private static int printNum = 1;
+        
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
@@ -47,6 +54,44 @@ namespace dotNetWPF_03_2682_5225
         }
         EventHandler<PrinterEventArgs> PageMissing;
         EventHandler<PrinterEventArgs> InkEmpty;
- 
+
+        public string PrinterName
+        {
+            get
+            {
+                return printerName;
+            }
+
+            set
+            {
+                printerName = value;
+            }
+        }
+
+        public double InkCount
+        {
+            get
+            {
+                return inkCount;
+            }
+
+            set
+            {
+                inkCount = value;
+            }
+        }
+
+        public int PageCount
+        {
+            get
+            {
+                return pageCount;
+            }
+
+            set
+            {
+                pageCount = value;
+            }
+        }
     }
 }
