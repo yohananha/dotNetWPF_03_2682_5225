@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace dotNetWPF_03_2682_5225
 {
-    class PrinterEventArgs
+    public class PrinterEventArgs
     {
         private bool isCritic;
         private DateTime errorTime;

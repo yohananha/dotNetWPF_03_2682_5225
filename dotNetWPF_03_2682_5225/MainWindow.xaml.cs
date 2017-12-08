@@ -32,11 +32,22 @@ namespace dotNetWPF_03_2682_5225
                 if (item is PrinterUserControl)
                 {
                     PrinterUserControl printer = item as PrinterUserControl;
+                    printer.PageMissing += pageMissingFunc;
+                    printer.InkEmpty += inkEmptyFunc;
                     queue.Enqueue(printer);
                 }
             }
             CourentPrinter = queue.Dequeue();
         }
 
+        private void inkEmptyFunc(object sender, PrinterEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void pageMissingFunc(object sender, PrinterEventArgs e)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

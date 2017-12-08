@@ -39,10 +39,10 @@ namespace dotNetWPF_03_2682_5225
         private double inkCount;
         private int pageCount;
         private static int printNum = 1;
-        static Random rnd = new Random();
+        public static Random rnd = new Random();
 
-        event EventHandler<PrinterEventArgs> PageMissing;
-        event EventHandler<PrinterEventArgs> InkEmpty;
+        public event EventHandler<PrinterEventArgs> PageMissing;
+        public event EventHandler<PrinterEventArgs> InkEmpty;
 
         public void print()
         {
