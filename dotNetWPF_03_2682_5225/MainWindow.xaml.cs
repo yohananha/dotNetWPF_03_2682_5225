@@ -23,6 +23,19 @@ namespace dotNetWPF_03_2682_5225
         public MainWindow()
         {
             InitializeComponent();
+            PrinterUserControl CourentPrinter;
+            Queue<PrinterUserControl> queue;
+            queue = new Queue<PrinterUserControl>();
+
+            foreach (Control item in printersGrid.Children)
+            {
+                if (item is PrinterUserControl)
+                {
+                    PrinterUserControl printer = item as PrinterUserControl;
+                    queue.Enqueue(printer);
+                }
+            }
+            CourentPrinter = queue.Dequeue();
         }
 
     }

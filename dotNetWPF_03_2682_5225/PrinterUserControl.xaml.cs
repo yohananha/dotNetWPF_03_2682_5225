@@ -41,8 +41,8 @@ namespace dotNetWPF_03_2682_5225
         private static int printNum = 1;
         static Random rnd = new Random();
 
-        EventHandler<PrinterEventArgs> PageMissing;
-        EventHandler<PrinterEventArgs> InkEmpty;
+        event EventHandler<PrinterEventArgs> PageMissing;
+        event EventHandler<PrinterEventArgs> InkEmpty;
 
         public void print()
         {
