@@ -21,7 +21,7 @@
             <local:PrinterUserControl Grid.Column="1" BorderThickness="3" Loaded="PrinterUserControl_Loaded_2"/>
             <local:PrinterUserControl Grid.Column="2" BorderThickness="3"/>
         </Grid>
-        <Button Name="printButton" Content="Print" FontSize="36" Grid.Row="1" FontFamily="Open Sans Hebrew" FontWeight="Bold">
+        <Button Name="printButton" Content="Print" FontSize="36" Grid.Row="1" FontFamily="Open Sans Hebrew" FontWeight="Bold" MouseDown="printButton_MouseDown">
             <Button.Foreground>
                 <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.HighlightTextColorKey}}"/>
             </Button.Foreground>
