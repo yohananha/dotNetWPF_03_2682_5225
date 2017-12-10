@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -37,11 +38,19 @@ namespace dotNetWPF_03_2682_5225
         private const int MIN_ADD_PAGES = MAX_PAGES/10;
         private const int MAX_PRINT_PAGES =300;
 
-        public static  double MaxPages => MAX_PAGES;
+
+
+        public static  double MaxPages
+        {
+            get { return MAX_PAGES; }
+            set { throw new NotImplementedException(); }
+        }
+
         private string printerName;
-        private double inkCount;
+        public double inkCount;
         private int pageCount;
         private static int printNum = 1;
+        public static double pbInk;
 
         public static Random rnd = new Random();
 
@@ -82,8 +91,8 @@ namespace dotNetWPF_03_2682_5225
 
         public void addInk()
         {
-            inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
-            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
+           inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
+           if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
         }
         public void addPages()
         {
@@ -143,6 +152,21 @@ namespace dotNetWPF_03_2682_5225
             {
                 pageCount = value;
             }
+        }
+
+        private void inkCountProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            inkCountProgressBar.Value = inkCount;
+        }
+
+        private void inkCountProgressBar_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            inkCountProgressBar.Value = inkCount;
+        }
+
+        private void inkCountProgressBar_ValueSet(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            inkCountProgressBar.Value = inkCount;
         }
     }
 }
