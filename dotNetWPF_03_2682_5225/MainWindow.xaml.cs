@@ -45,14 +45,31 @@ namespace dotNetWPF_03_2682_5225
 
         private void inkEmptyFunc(object sender, PrinterEventArgs e)
         {
-            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Ink Missing!!!!!!");
+            MessageBox.Show("at: " + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Ink Missing!!!!!!");
+            if(e.IsCritic)
+            {
+                CurrentPrinter.addInk();
+                queue.Enqueue(CurrentPrinter);
+                CurrentPrinter = queue.Dequeue();
+            }
         }
 
         private void pageMissingFunc(object sender, PrinterEventArgs e)
         {
-            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message ,e.PrinterName + " Page Missing!!!!!!");
-            queue.Enqueue(CurrentPrinter);
-            CurrentPrinter = queue.Dequeue();
+            MessageBox.Show("at: " + e.ErrorTime + "\nMessage from printer:" + e.Message ,e.PrinterName + " Page Missing!!!!!!");
+            while (CurrentPrinter.PageCount < 0)
+                CurrentPrinter.addPages();
+            if (CurrentPrinter.InkCount <= 0) return;
+            else
+            {
+                queue.Enqueue(CurrentPrinter);
+                CurrentPrinter = queue.Dequeue();
+            }
+        }
+
+        private void printButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPrinter.print();
         }
     }
 }
