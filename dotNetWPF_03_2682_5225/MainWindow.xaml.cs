@@ -20,7 +20,7 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class MainWindow : Window
     {
-        PrinterUserControl CourentPrinter;
+        PrinterUserControl CurrentPrinter;
         Queue<PrinterUserControl> queue;
 
         public MainWindow()
@@ -40,7 +40,7 @@ namespace dotNetWPF_03_2682_5225
                     queue.Enqueue(printer);
                 }
             }
-            CourentPrinter = queue.Dequeue();
+            CurrentPrinter = queue.Dequeue();
         }
 
         private void inkEmptyFunc(object sender, PrinterEventArgs e)
@@ -51,8 +51,8 @@ namespace dotNetWPF_03_2682_5225
         private void pageMissingFunc(object sender, PrinterEventArgs e)
         {
             MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message ,e.PrinterName + " Page Missing!!!!!!");
-            queue.Enqueue(CourentPrinter);
-            CourentPrinter = queue.Dequeue();
+            queue.Enqueue(CurrentPrinter);
+            CurrentPrinter = queue.Dequeue();
         }
     }
 }

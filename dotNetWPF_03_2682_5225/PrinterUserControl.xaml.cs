@@ -76,6 +76,10 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
+        public void addPages()
+        {
+            inkCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+        }
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
