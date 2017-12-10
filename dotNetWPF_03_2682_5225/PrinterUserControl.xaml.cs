@@ -25,18 +25,18 @@ namespace dotNetWPF_03_2682_5225
         {
             InitializeComponent();
             PrinterName =  "printer " + Convert.ToString(printNum++);
-            
+            this.printerNameLabel.Content = PrinterName;
             addInk();
             addPages();
         }  
         //Ink handling consts
         private const double MAX_INK = 100;
-        private const double MIN_ADD_INK = MAX_INK/10.0;
-        private const double MAX_PRINT_INK = 70;
+        private const double MIN_ADD_INK = 1;
+        private const double MAX_PRINT_INK = 15;
         //Pages handling consts
         private const int MAX_PAGES = 400;
-        private const int MIN_ADD_PAGES = MAX_PAGES/10;
-        private const int MAX_PRINT_PAGES =300;
+        private const int MIN_ADD_PAGES = 10;
+        private const int MAX_PRINT_PAGES =40;
 
         public static  double MaxPages => MAX_PAGES;
 
@@ -55,7 +55,9 @@ namespace dotNetWPF_03_2682_5225
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
             PageCount -= pageUse;
+            this.pageCountSlider.Value = PageCount;
             InkCount -= inkUse;
+            this.inkCountProgressBar.Value = InkCount;
             if (PageCount<=0)
             {
                 pageLabel.Foreground = Brushes.Red;
@@ -84,13 +86,17 @@ namespace dotNetWPF_03_2682_5225
 
         public void addInk()
         {
-            InkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
-            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;  
+            InkCount = 0;
+            InkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_INK);
+            this.inkLabel.Foreground = Brushes.Black;
+            this.inkCountProgressBar.Value = InkCount;
         }
         public void addPages()
         {
-            pageCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
-            if (pageLabel != null) pageLabel.Foreground = Brushes.Black;
+            PageCount = 0;
+            PageCount += rnd.Next(MIN_ADD_PAGES, MAX_PAGES);
+            this.pageLabel.Foreground = Brushes.Black;
+            this.pageCountSlider.Value = PageCount;
         }
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
