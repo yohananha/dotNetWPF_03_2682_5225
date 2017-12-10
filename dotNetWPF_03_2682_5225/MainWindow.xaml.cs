@@ -23,7 +23,34 @@ namespace dotNetWPF_03_2682_5225
         public MainWindow()
         {
             InitializeComponent();
+            PrinterUserControl CurrentPrinter;
+            Queue<PrinterUserControl> queue;
+
+            queue = new Queue<PrinterUserControl>();
+            foreach(Control item in printersGrid.Children)
+            {
+            
+                queue.Enqueue(printer);
+            }
+            CurrentPrinter = queue.Dequeue();
+
+
         }
 
+        private void PrinterOnPageMissing(object sender, PrinterEventArgs printerEventArgs)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void PrinterOnInkEmpty(object sender, PrinterEventArgs printerEventArgs)
+        {
+            throw new NotImplementedException();
+        }
+
+
+        private void printButton_MouseDown(object sender, MouseButtonEventArgs e)
+        {
+            PrinterUserControl.print();
+        }
     }
 }
