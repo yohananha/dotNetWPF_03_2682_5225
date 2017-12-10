@@ -45,6 +45,7 @@ namespace dotNetWPF_03_2682_5225
         private int pageCount;
         private static int printNum = 1;
 
+        int howPageMissing;
         public static Random rnd = new Random();
 
         public event EventHandler<PrinterEventArgs> PageMissing;
@@ -55,13 +56,14 @@ namespace dotNetWPF_03_2682_5225
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
             PageCount -= pageUse;
+            howPageMissing = PageCount;
             this.pageCountSlider.Value = PageCount;
             InkCount -= inkUse;
             this.inkCountProgressBar.Value = InkCount;
             if (PageCount<=0)
             {
                 pageLabel.Foreground = Brushes.Red;
-                PrinterEventArgs noPages = new PrinterEventArgs(true, "Missing "+ Convert.ToString((PageCount*(-1)))+" Pages" , PrinterName);
+                PrinterEventArgs noPages = new PrinterEventArgs(true, "Missing "+ howPageMissing*(-1) +" Pages" , PrinterName);
                 PageMissing(this, noPages);
             }
             if(InkCount<=15&&InkCount>10)
@@ -158,6 +160,9 @@ namespace dotNetWPF_03_2682_5225
             pageCountSlider.ToolTip = pageCountSlider.Value;
         }
 
-      
+        private void textBoxSlider_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            PageCount = Convert.ToInt32(textBoxSlider.Text);
+        }
     }
 }
