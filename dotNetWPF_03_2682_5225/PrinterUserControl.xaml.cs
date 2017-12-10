@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,20 +35,16 @@ namespace dotNetWPF_03_2682_5225
         private const int MIN_ADD_PAGES = MAX_PAGES/10;
         private const int MAX_PRINT_PAGES =300;
 
-        private static string printerName;
-        private static double inkCount;
-        private static int pageCount;
+        private string printerName;
+        private double inkCount;
+        private int pageCount;
         private static int printNum = 1;
-        static Random rnd = new Random();
+        public static Random rnd = new Random();
 
-        //public delegate void EventHandler<PrinterEventArgs> PageMissing();
+        public event EventHandler<PrinterEventArgs> PageMissing;
+        public event EventHandler<PrinterEventArgs> InkEmpty;
 
-        //protected delegate void EventHandler<PrinterEventArgs> InkEmpty();
-
-        public static event EventHandler<PrinterEventArgs> PageMissing;
-        public static event EventHandler<PrinterEventArgs> InkEmpty; 
-
-        public static void print()
+        public void print()
         {
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
@@ -57,27 +52,27 @@ namespace dotNetWPF_03_2682_5225
             if (PageCount>=0)
             {
                 pageLabel.Foreground = Brushes.Red;
-                PrinterEventArgs noPages = new PrinterEventArgs(true, DateTime.Now, "Missing "+ Convert.ToString((PageCount*(-1)))+" Pages" , PrinterName);
-                if (PageMissing != null) PageMissing(this, noPages);
+                PrinterEventArgs noPages = new PrinterEventArgs(true, "Missing "+ Convert.ToString((PageCount*(-1)))+" Pages" , PrinterName);
+                PageMissing(this, noPages);
             }
             InkCount -= inkUse;
             if(InkCount<=15&&InkCount>10)
             {
                 inkLabel.Foreground = Brushes.Yellow;
-                PrinterEventArgs lowInk = new PrinterEventArgs(false, DateTime.Now, "Low ink, only " + Convert.ToString(InkCount, CultureInfo.InvariantCulture) + "% ink remain.", printerName);
-                if (InkEmpty != null) InkEmpty(this, lowInk);
+                PrinterEventArgs lowInk = new PrinterEventArgs(false, "Low ink, only " + Convert.ToString(InkCount) + "% ink remain.", printerName);
+                InkEmpty(this, lowInk);
             }
             else if (InkCount<=10&&InkCount>0)
             {
                 inkLabel.Foreground = Brushes.Orange;
-                PrinterEventArgs veryLowInk = new PrinterEventArgs(false, DateTime.Now, "Very low ink, only " + Convert.ToString(InkCount, CultureInfo.CurrentCulture) + "% ink remain.", printerName);
-                if (InkEmpty != null) InkEmpty(this, veryLowInk);
+                PrinterEventArgs veryLowInk = new PrinterEventArgs(false, "Very low ink, only " + Convert.ToString(InkCount) + "% ink remain.", printerName);
+                InkEmpty(this, veryLowInk);
             }
             else if (inkCount<=0)
             {
                 inkLabel.Foreground = Brushes.Red;
-                PrinterEventArgs criticInk = new PrinterEventArgs(true, DateTime.Now, "No ink left. Please add ink", printerName);
-                if (InkEmpty != null) InkEmpty(this, criticInk);
+                PrinterEventArgs criticInk = new PrinterEventArgs(true, "No ink left. Please add ink", printerName);
+                InkEmpty(this, criticInk);
             }
         }
 
@@ -110,7 +105,7 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
-        public static double InkCount
+        public double InkCount
         {
             get
             {
@@ -123,7 +118,7 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
-        public static int PageCount
+        public int PageCount
         {
             get
             {

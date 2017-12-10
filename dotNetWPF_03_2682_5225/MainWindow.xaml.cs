@@ -20,37 +20,38 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class MainWindow : Window
     {
+        PrinterUserControl CourentPrinter;
+        Queue<PrinterUserControl> queue;
+
         public MainWindow()
         {
             InitializeComponent();
-            PrinterUserControl CurrentPrinter;
-            Queue<PrinterUserControl> queue;
-
+           
             queue = new Queue<PrinterUserControl>();
-            foreach(Control item in printersGrid.Children)
-            {
             
-                queue.Enqueue(printer);
+
+            foreach (Control item in printersGrid.Children)
+            {
+                if (item is PrinterUserControl)
+                {
+                    PrinterUserControl printer = item as PrinterUserControl;
+                    printer.PageMissing += pageMissingFunc;
+                    printer.InkEmpty += inkEmptyFunc;
+                    queue.Enqueue(printer);
+                }
             }
-            CurrentPrinter = queue.Dequeue();
-
-
+            CourentPrinter = queue.Dequeue();
         }
 
-        private void PrinterOnPageMissing(object sender, PrinterEventArgs printerEventArgs)
+        private void inkEmptyFunc(object sender, PrinterEventArgs e)
         {
             throw new NotImplementedException();
         }
 
-        private void PrinterOnInkEmpty(object sender, PrinterEventArgs printerEventArgs)
+        private void pageMissingFunc(object sender, PrinterEventArgs e)
         {
-            throw new NotImplementedException();
-        }
-
-
-        private void printButton_MouseDown(object sender, MouseButtonEventArgs e)
-        {
-            PrinterUserControl.print();
+            MessageBox.Show("הטקסט","כותרת");
+            
         }
     }
 }
