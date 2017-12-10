@@ -153,5 +153,11 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
+        private void pageCountSlider_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            pageCountSlider.ToolTip = pageCountSlider.Value;
+        }
+
+      
     }
 }
