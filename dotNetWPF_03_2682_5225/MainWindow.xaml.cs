@@ -45,13 +45,14 @@ namespace dotNetWPF_03_2682_5225
 
         private void inkEmptyFunc(object sender, PrinterEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Ink Missing!!!!!!");
         }
 
         private void pageMissingFunc(object sender, PrinterEventArgs e)
         {
-            MessageBox.Show("הטקסט","כותרת");
-            
+            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message ,e.PrinterName + " Page Missing!!!!!!");
+            queue.Enqueue(CourentPrinter);
+            CourentPrinter = queue.Dequeue();
         }
     }
 }
