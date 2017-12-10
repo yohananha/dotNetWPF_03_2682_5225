@@ -20,12 +20,15 @@ namespace dotNetWPF_03_2682_5225
     /// </summary>
     public partial class MainWindow : Window
     {
+        PrinterUserControl CourentPrinter;
+        Queue<PrinterUserControl> queue;
+
         public MainWindow()
         {
             InitializeComponent();
-            PrinterUserControl CourentPrinter;
-            Queue<PrinterUserControl> queue;
+           
             queue = new Queue<PrinterUserControl>();
+            
 
             foreach (Control item in printersGrid.Children)
             {
@@ -47,7 +50,8 @@ namespace dotNetWPF_03_2682_5225
 
         private void pageMissingFunc(object sender, PrinterEventArgs e)
         {
-            throw new NotImplementedException();
+            MessageBox.Show("הטקסט","כותרת");
+            
         }
     }
 }

@@ -13,10 +13,18 @@ namespace dotNetWPF_03_2682_5225
         private string message;
         private string printerName;
 
-        public PrinterEventArgs(bool _isCritic, DateTime _errorTime, string _message, string _printerName )
+        public bool IsCritic { get; }
+
+        public DateTime ErrorTime { get; }
+
+        public string Message { get; }
+   
+        public string PrinterName { get; }
+
+        public PrinterEventArgs(bool _isCritic, string _message, string _printerName )
         {
             isCritic = _isCritic;
-            errorTime = _errorTime;
+            errorTime = DateTime.Now;
             message = _message;
             printerName = _printerName;
         }
