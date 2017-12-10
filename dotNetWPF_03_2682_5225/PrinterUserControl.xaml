@@ -24,7 +24,7 @@
             </Grid.RowDefinitions>
             <Label Name="inkLabel" Content="Ink:" FontFamily="Open Sans Hebrew"/>
             <Label Grid.Row="1" Name="pageLabel" Content="Pages:" FontFamily="Open Sans Hebrew" Foreground="Black"/>
-            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="20"   ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
+            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="10"   ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
 
             <Slider Grid.Column="1" Grid.Row="1" Name="pageCountSlider" Value="0" Maximum="{x:Static local:PrinterUserControl.MaxPages}" VerticalAlignment="Center"/>
         </Grid>

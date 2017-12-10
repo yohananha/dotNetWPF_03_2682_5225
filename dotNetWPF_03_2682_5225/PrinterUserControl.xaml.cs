@@ -23,7 +23,7 @@ namespace dotNetWPF_03_2682_5225
  
         public PrinterUserControl()
         {
-            PrinterName = "printer" + Convert.ToString(printNum++);
+            PrinterName =  "printer" + Convert.ToString(printNum++);
             addInk();
             addPages();
             InitializeComponent();
@@ -37,24 +37,18 @@ namespace dotNetWPF_03_2682_5225
         private const int MIN_ADD_PAGES = MAX_PAGES/10;
         private const int MAX_PRINT_PAGES =300;
 
+        public static  double MaxPages => MAX_PAGES;
         private string printerName;
         private double inkCount;
         private int pageCount;
         private static int printNum = 1;
-        public static Random rnd = new Random();
 
-        public static double MaxPages
-        {
-            get
-            {
-                return MAX_PAGES;
-            }
-        }
+        public static Random rnd = new Random();
 
         public event EventHandler<PrinterEventArgs> PageMissing;
         public event EventHandler<PrinterEventArgs> InkEmpty;
 
-        public void print()
+        public void Print()
         {
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
@@ -89,12 +83,12 @@ namespace dotNetWPF_03_2682_5225
         public void addInk()
         {
             inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
-           // inkLabel.Foreground = Brushes.Black;
+            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
         }
         public void addPages()
         {
-            PageCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
-           // pageLabel.Foreground = Brushes.Black;
+            pageCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+            if (pageLabel != null) pageLabel.Foreground = Brushes.Black;
         }
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
