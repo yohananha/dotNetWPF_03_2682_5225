@@ -23,10 +23,11 @@ namespace dotNetWPF_03_2682_5225
  
         public PrinterUserControl()
         {
-            PrinterName =  "printer" + Convert.ToString(printNum++);
+            InitializeComponent();
+            PrinterName =  "printer " + Convert.ToString(printNum++);
+            
             addInk();
             addPages();
-            InitializeComponent();
         }  
         //Ink handling consts
         private const double MAX_INK = 100;
@@ -38,6 +39,7 @@ namespace dotNetWPF_03_2682_5225
         private const int MAX_PRINT_PAGES =300;
 
         public static  double MaxPages => MAX_PAGES;
+
         private string printerName;
         private double inkCount;
         private int pageCount;
@@ -82,8 +84,8 @@ namespace dotNetWPF_03_2682_5225
 
         public void addInk()
         {
-            inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
-            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
+            InkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
+            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;  
         }
         public void addPages()
         {
@@ -144,5 +146,6 @@ namespace dotNetWPF_03_2682_5225
                 pageCount = value;
             }
         }
+
     }
 }
