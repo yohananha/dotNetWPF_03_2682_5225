@@ -24,6 +24,8 @@ namespace dotNetWPF_03_2682_5225
         public PrinterUserControl()
         {
             PrinterName =  "printer" + Convert.ToString(printNum++);
+            addInk();
+            addPages();
             InitializeComponent();
         }  
         //Ink handling consts
@@ -35,27 +37,29 @@ namespace dotNetWPF_03_2682_5225
         private const int MIN_ADD_PAGES = MAX_PAGES/10;
         private const int MAX_PRINT_PAGES =300;
 
+        public static  double MaxPages => MAX_PAGES;
         private string printerName;
         private double inkCount;
         private int pageCount;
         private static int printNum = 1;
+
         public static Random rnd = new Random();
 
         public event EventHandler<PrinterEventArgs> PageMissing;
         public event EventHandler<PrinterEventArgs> InkEmpty;
 
-        public void print()
+        public void Print()
         {
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
             PageCount -= pageUse;
-            if (PageCount>=0)
+            InkCount -= inkUse;
+            if (PageCount<=0)
             {
                 pageLabel.Foreground = Brushes.Red;
                 PrinterEventArgs noPages = new PrinterEventArgs(true, "Missing "+ Convert.ToString((PageCount*(-1)))+" Pages" , PrinterName);
                 PageMissing(this, noPages);
             }
-            InkCount -= inkUse;
             if(InkCount<=15&&InkCount>10)
             {
                 inkLabel.Foreground = Brushes.Yellow;
@@ -79,10 +83,12 @@ namespace dotNetWPF_03_2682_5225
         public void addInk()
         {
             inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
+            if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
         }
         public void addPages()
         {
-            inkCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+            pageCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
+            if (pageLabel != null) pageLabel.Foreground = Brushes.Black;
         }
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)

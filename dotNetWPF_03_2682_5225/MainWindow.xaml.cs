@@ -26,33 +26,57 @@ namespace dotNetWPF_03_2682_5225
         public MainWindow()
         {
             InitializeComponent();
-           
+
             queue = new Queue<PrinterUserControl>();
-            
+
 
             foreach (Control item in printersGrid.Children)
             {
                 if (item is PrinterUserControl)
                 {
                     PrinterUserControl printer = item as PrinterUserControl;
-                    printer.PageMissing += pageMissingFunc;
-                    printer.InkEmpty += inkEmptyFunc;
+                    printer.PageMissing += PageMissingFunc;
+                    printer.InkEmpty += InkEmptyFunc;
                     queue.Enqueue(printer);
                 }
             }
             CurrentPrinter = queue.Dequeue();
         }
 
-        private void inkEmptyFunc(object sender, PrinterEventArgs e)
+        private void InkEmptyFunc(object sender, PrinterEventArgs e)
         {
             MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Ink Missing!!!!!!");
+            if (e.IsCritic)
+            {
+                CurrentPrinter.addInk();
+                queue.Enqueue(CurrentPrinter);
+                CurrentPrinter = queue.Dequeue();
+            }
+
         }
 
-        private void pageMissingFunc(object sender, PrinterEventArgs e)
+        private void PageMissingFunc(object sender, PrinterEventArgs e)
         {
-            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message ,e.PrinterName + " Page Missing!!!!!!");
-            queue.Enqueue(CurrentPrinter);
-            CurrentPrinter = queue.Dequeue();
+            MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Page Missing!!!!!!");
+            while (CurrentPrinter.PageCount<0)
+            {
+                CurrentPrinter.addPages();
+            }
+            if (CurrentPrinter.InkCount <= 0)
+            {
+                return;
+            }
+            else
+            {
+                queue.Enqueue(CurrentPrinter);
+                CurrentPrinter = queue.Dequeue();
+            }
+
+        }
+
+        private void printButton_Click(object sender, RoutedEventArgs e)
+        {
+            CurrentPrinter.Print();
         }
     }
 }

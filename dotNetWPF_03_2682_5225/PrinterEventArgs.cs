@@ -8,10 +8,9 @@ namespace dotNetWPF_03_2682_5225
 {
     public class PrinterEventArgs
     {
-        private bool isCritic;
-        private DateTime errorTime;
-        private string message;
-        private string printerName;
+        //private bool isCritic;
+        //private string message;
+        //private string printerName;
 
         public bool IsCritic { get; }
 
@@ -21,12 +20,12 @@ namespace dotNetWPF_03_2682_5225
    
         public string PrinterName { get; }
 
-        public PrinterEventArgs(bool _isCritic, string _message, string _printerName )
+        public PrinterEventArgs(bool isCritic, string message, string printerName)
         {
-            isCritic = _isCritic;
-            errorTime = DateTime.Now;
-            message = _message;
-            printerName = _printerName;
+            PrinterName = printerName;
+            Message = message;
+            ErrorTime = DateTime.Now;
+            IsCritic = isCritic;
         }
     }
 }
