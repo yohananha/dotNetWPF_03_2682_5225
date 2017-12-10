@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -24,33 +23,27 @@ namespace dotNetWPF_03_2682_5225
  
         public PrinterUserControl()
         {
-            PrinterName =  "printer" + Convert.ToString(printNum++);
+            InitializeComponent();
+            PrinterName =  "printer " + Convert.ToString(printNum++);
+            this.printerNameLabel.Content = PrinterName;
             addInk();
             addPages();
-            InitializeComponent();
         }  
         //Ink handling consts
         private const double MAX_INK = 100;
-        private const double MIN_ADD_INK = MAX_INK/10.0;
-        private const double MAX_PRINT_INK = 70;
+        private const double MIN_ADD_INK = 1;
+        private const double MAX_PRINT_INK = 15;
         //Pages handling consts
         private const int MAX_PAGES = 400;
-        private const int MIN_ADD_PAGES = MAX_PAGES/10;
-        private const int MAX_PRINT_PAGES =300;
+        private const int MIN_ADD_PAGES = 10;
+        private const int MAX_PRINT_PAGES =40;
 
-
-
-        public static  double MaxPages
-        {
-            get { return MAX_PAGES; }
-            set { throw new NotImplementedException(); }
-        }
+        public static  double MaxPages => MAX_PAGES;
 
         private string printerName;
-        public double inkCount;
+        private double inkCount;
         private int pageCount;
         private static int printNum = 1;
-        public static double pbInk;
 
         public static Random rnd = new Random();
 
@@ -62,7 +55,9 @@ namespace dotNetWPF_03_2682_5225
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
             PageCount -= pageUse;
+            this.pageCountSlider.Value = PageCount;
             InkCount -= inkUse;
+            this.inkCountProgressBar.Value = InkCount;
             if (PageCount<=0)
             {
                 pageLabel.Foreground = Brushes.Red;
@@ -91,13 +86,17 @@ namespace dotNetWPF_03_2682_5225
 
         public void addInk()
         {
-           inkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_PRINT_INK);
-           if (inkLabel != null) inkLabel.Foreground = Brushes.Black;
+            InkCount = 0;
+            InkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_INK);
+            this.inkLabel.Foreground = Brushes.Black;
+            this.inkCountProgressBar.Value = InkCount;
         }
         public void addPages()
         {
-            pageCount += rnd.Next(MIN_ADD_PAGES, MAX_PRINT_PAGES);
-            if (pageLabel != null) pageLabel.Foreground = Brushes.Black;
+            PageCount = 0;
+            PageCount += rnd.Next(MIN_ADD_PAGES, MAX_PAGES);
+            this.pageLabel.Foreground = Brushes.Black;
+            this.pageCountSlider.Value = PageCount;
         }
 
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
@@ -154,19 +153,5 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
-        private void inkCountProgressBar_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            inkCountProgressBar.Value = inkCount;
-        }
-
-        private void inkCountProgressBar_ValueChanged_1(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            inkCountProgressBar.Value = inkCount;
-        }
-
-        private void inkCountProgressBar_ValueSet(object sender, RoutedPropertyChangedEventArgs<double> e)
-        {
-            inkCountProgressBar.Value = inkCount;
-        }
     }
 }

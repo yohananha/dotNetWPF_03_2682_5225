@@ -58,10 +58,7 @@ namespace dotNetWPF_03_2682_5225
         private void PageMissingFunc(object sender, PrinterEventArgs e)
         {
             MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer:" + e.Message, e.PrinterName + " Page Missing!!!!!!");
-            while (CurrentPrinter.PageCount<0)
-            {
                 CurrentPrinter.addPages();
-            }
             if (CurrentPrinter.InkCount <= 0)
             {
                 return;
