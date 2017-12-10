@@ -28,7 +28,7 @@
             <DockPanel  Grid.Column="1" Grid.Row="1">
                 <TextBox Text="{Binding ElementName=pageCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Name="textBoxSlider" DockPanel.Dock="Right" TextAlignment="Right" Width="40" TextChanged="textBoxSlider_TextChanged" />
                 <Slider  x:Name="pageCountSlider" Value="0" Maximum="{x:Static local:PrinterUserControl.MaxPages}" VerticalAlignment="Center" ToolTipOpening="pageCountSlider_ToolTipOpening" ToolTip="" 
-                         TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True" />
+                         TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
             </DockPanel>
         </Grid>
         <Image Grid.Row ="0" Source="imeges/51755-O6WIBL.jpg" Margin="3" />
