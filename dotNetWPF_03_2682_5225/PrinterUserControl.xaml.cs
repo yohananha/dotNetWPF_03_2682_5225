@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -53,13 +54,17 @@ namespace dotNetWPF_03_2682_5225
 
         public void Print()
         {
+            // 1. roll the random numbers to use for print
             double inkUse = rnd.Next((int)MIN_ADD_INK,(int)MAX_PRINT_INK);
             int pageUse = rnd.Next(MIN_ADD_PAGES,MAX_PRINT_PAGES);
+            Thread.Sleep(500);
+            // 2. reduce the ink and pages from printer values and visual bars
             PageCount -= pageUse;
             howPageMissing = PageCount;
             this.pageCountSlider.Value = PageCount;
             InkCount -= inkUse;
             this.inkCountProgressBar.Value = InkCount;
+            // 3. activate events and error messages if needed
             if (PageCount<=0)
             {
                 pageLabel.Foreground = Brushes.Red;
@@ -88,19 +93,27 @@ namespace dotNetWPF_03_2682_5225
 
         public void addInk()
         {
+            // 1. roll amount of ink and add to printer
             InkCount = 0;
             InkCount += rnd.Next((int)MIN_ADD_INK, (int)MAX_INK);
-            this.inkLabel.Foreground = Brushes.Black;
+            // 2. update the visual feedback
+            if (inkCount > 15)
+            {
+                this.inkLabel.Foreground = Brushes.Black;
+            }
             this.inkCountProgressBar.Value = InkCount;
         }
         public void addPages()
         {
+            // 1. roll amount of pages and add to printer
             PageCount = 0;
             PageCount += rnd.Next(MIN_ADD_PAGES, MAX_PAGES);
+            // 2. update the visual feedback
             this.pageLabel.Foreground = Brushes.Black;
             this.pageCountSlider.Value = PageCount;
         }
 
+        //change size of printer name labels when hovering
         private void printerNameLabel_MouseEnter(object sender, MouseEventArgs e)
         {
             printerNameLabel.FontSize *= 2;
@@ -110,12 +123,23 @@ namespace dotNetWPF_03_2682_5225
         {
             printerNameLabel.FontSize /= 2;
         }
-
+        // activate tool tip for ink
         private void inkCountProgressBar_ToolTipOpening(object sender, ToolTipEventArgs e)
         {
             inkCountProgressBar.ToolTip = inkCountProgressBar.Value;
         }
-        
+
+        //activate tool tip for pages
+        private void pageCountSlider_ToolTipOpening(object sender, ToolTipEventArgs e)
+        {
+            pageCountSlider.ToolTip = pageCountSlider.Value;
+        }
+
+        //activate changing in pages amount by numbers
+        private void textBoxSlider_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            PageCount = Convert.ToInt32(textBoxSlider.Text);
+        }
         public string PrinterName
         {
             get
@@ -155,14 +179,6 @@ namespace dotNetWPF_03_2682_5225
             }
         }
 
-        private void pageCountSlider_ToolTipOpening(object sender, ToolTipEventArgs e)
-        {
-            pageCountSlider.ToolTip = pageCountSlider.Value;
-        }
-
-        private void textBoxSlider_TextChanged(object sender, TextChangedEventArgs e)
-        {
-            PageCount = Convert.ToInt32(textBoxSlider.Text);
-        }
+       
     }
 }

@@ -23,27 +23,28 @@ namespace dotNetWPF_03_2682_5225
         PrinterUserControl CurrentPrinter;
         Queue<PrinterUserControl> queue;
 
-        public MainWindow()
+        public MainWindow()//constructor for the printers
         {
             InitializeComponent();
 
             queue = new Queue<PrinterUserControl>();
 
 
-            foreach (Control item in printersGrid.Children)
+            foreach (Control item in printersGrid.Children)//scan the grid for peinters and add them to a queue
             {
                 if (item is PrinterUserControl)
                 {
                     PrinterUserControl printer = item as PrinterUserControl;
+                    //register to events:
                     printer.PageMissing += PageMissingFunc;
                     printer.InkEmpty += InkEmptyFunc;
                     queue.Enqueue(printer);
                 }
             }
-            CurrentPrinter = queue.Dequeue();
+            CurrentPrinter = queue.Dequeue();//assign the firstprinter into queue
         }
 
-        private void InkEmptyFunc(object sender, PrinterEventArgs e)
+        private void InkEmptyFunc(object sender, PrinterEventArgs e)//event handler for ink
         {
             if (e.IsCritic)
             {
@@ -60,7 +61,7 @@ namespace dotNetWPF_03_2682_5225
         {
             MessageBox.Show("at:" + e.ErrorTime + "\nMessage from printer: " + e.Message, e.PrinterName + " Page Missing!!!!!!", MessageBoxButton.OK, MessageBoxImage.Error);
                 CurrentPrinter.addPages();
-            if (CurrentPrinter.InkCount <= 0)
+            if (CurrentPrinter.InkCount <= 0)//in case the ink is also missing the program activate the second event
             {
                 return;
             }
@@ -74,7 +75,8 @@ namespace dotNetWPF_03_2682_5225
 
         private void printButton_Click(object sender, RoutedEventArgs e)
         {
-            CurrentPrinter.Print();
+            CurrentPrinter.Print();//activate print funtion when button clicked
         }
+        
     }
 }

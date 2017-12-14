@@ -8,10 +8,8 @@ namespace dotNetWPF_03_2682_5225
 {
     public class PrinterEventArgs
     {
-        //private bool isCritic;
-        //private string message;
-        //private string printerName;
 
+        //arguments to be sent to event:
         public bool IsCritic { get; set; }
 
         public DateTime ErrorTime { get; set; }

@@ -24,9 +24,9 @@
             </Grid.RowDefinitions>
             <Label Name="inkLabel" Content="Ink:" FontFamily="Open Sans Hebrew"/>
             <Label Grid.Row="1" Name="pageLabel" Content="Pages:" FontFamily="Open Sans Hebrew" Foreground="Black"/>
-            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="10"   ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip=""/>
+            <ProgressBar Grid.Column="1" Name="inkCountProgressBar" Value="10"   ToolTipOpening="inkCountProgressBar_ToolTipOpening" ToolTip="" Foreground="#FF77C1C5"/>
             <DockPanel  Grid.Column="1" Grid.Row="1">
-                <TextBox Text="{Binding ElementName=pageCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Name="textBoxSlider" DockPanel.Dock="Right" TextAlignment="Right" Width="40" TextChanged="textBoxSlider_TextChanged" />
+                <TextBox Text="{Binding ElementName=pageCountSlider, Path=Value, UpdateSourceTrigger=PropertyChanged}" Name="textBoxSlider" DockPanel.Dock="Right" TextAlignment="Center" Width="40" TextChanged="textBoxSlider_TextChanged" />
                 <Slider  x:Name="pageCountSlider" Value="0" Maximum="{x:Static local:PrinterUserControl.MaxPages}" VerticalAlignment="Center" ToolTipOpening="pageCountSlider_ToolTipOpening" ToolTip="" 
                          TickPlacement="BottomRight" TickFrequency="10" IsSnapToTickEnabled="True"/>
             </DockPanel>
